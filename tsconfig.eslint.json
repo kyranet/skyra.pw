@@ -1,9 +1,18 @@
 {
-	"extends": "./src/tsconfig.json",
+	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"baseUrl": ".",
-		"allowJs": true,
-		"checkJs": true
+		"allowJs": true
 	},
-	"include": ["scripts", "src"]
+	"include": [
+		"**/*.ts",
+		"**/*.tsx",
+		"**/*.js",
+		"**/*.jsx",
+		"**/*.vue",
+		"**/*.test.ts",
+		"**/*.test.js",
+		"**/*.spec.ts",
+		"**/*.spec.js"
+	],
+	"exclude": []
 }
