@@ -16,7 +16,7 @@ const SelectChannels = ({ label, value, guild, onChange, tooltipTitle, ...props 
 		onChange={onChange}
 		tooltipTitle={tooltipTitle}
 		values={guild.channels
-			.filter((c) => c.type === 'text' || c.type === 'store' || c.type === 'news')
+			.filter((c) => c.type === 'GUILD_TEXT' || c.type === 'GUILD_NEWS')
 			.sort((c1, c2) => c1.rawPosition - c2.rawPosition)
 			.map((c) => ({ name: c.name, value: c.id }))}
 	/>

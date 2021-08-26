@@ -1,3 +1,4 @@
+import type { ChannelTypeString } from '@sapphire/discord.js-utilities';
 import type { LoginData } from '@sapphire/plugin-api';
 import type { Guild } from 'discord.js';
 
@@ -8,16 +9,16 @@ export interface TransformedLoginData extends LoginData {
 interface FlattenedGuild
 	extends Pick<
 		Guild,
-		| 'afkChannelID'
+		| 'afkChannelId'
 		| 'afkTimeout'
-		| 'applicationID'
+		| 'applicationId'
 		| 'approximateMemberCount'
 		| 'approximatePresenceCount'
 		| 'available'
 		| 'banner'
 		| 'defaultMessageNotifications'
 		| 'description'
-		| 'embedEnabled'
+		| 'widgetEnabled'
 		| 'explicitContentFilter'
 		| 'features'
 		| 'icon'
@@ -25,157 +26,226 @@ interface FlattenedGuild
 		| 'joinedTimestamp'
 		| 'mfaLevel'
 		| 'name'
-		| 'ownerID'
+		| 'ownerId'
 		| 'partnered'
 		| 'preferredLocale'
 		| 'premiumSubscriptionCount'
 		| 'premiumTier'
-		| 'region'
 		| 'splash'
-		| 'systemChannelID'
+		| 'systemChannelId'
 		| 'vanityURLCode'
 		| 'verificationLevel'
 		| 'verified'
 	> {
 	channels: FlattenedGuildChannel[];
-	roles: FlattenedRole[];
+
 	emojis: FlattenedEmoji[];
-	skyraIsIn: boolean;
+
 	manageable: boolean;
+
 	permissions?: number;
+
+	roles: FlattenedRole[];
+
+	skyraIsIn: boolean;
 }
 
 interface FlattenedEmoji {
-	name: string;
-	roles: any[];
-	id: string;
-	require_colons: boolean;
-	managed: boolean;
 	animated: boolean;
+
 	available: boolean;
+
+	id: string;
+
+	managed: boolean;
+
+	name: string;
+
+	require_colons: boolean;
+
+	roles: any[];
 }
 
 interface FlattenedRole {
-	id: string;
-	guildID: string;
-	name: string;
 	color: number;
+
+	guildId: string;
+
 	hoist: boolean;
-	rawPosition: number;
-	permissions: number;
+
+	id: string;
+
 	managed: boolean;
+
 	mentionable: boolean;
+
+	name: string;
+
+	permissions: string;
+
+	rawPosition: number;
 }
 
 interface FlattenedChannel {
-	id: string;
-	type: 'dm' | 'text' | 'voice' | 'category' | 'news' | 'store' | 'unknown';
 	createdTimestamp: number;
+
+	id: string;
+
+	type: ChannelTypeString;
 }
 
 interface FlattenedGuildChannel extends FlattenedChannel {
-	type: 'text' | 'voice' | 'category' | 'news' | 'store' | 'unknown';
-	guildID: string;
-	name: string;
-	rawPosition: number;
-	parentID: string | null;
-	permissionOverwrites?: [string, { id: string; type: string; deny: number; allow: number }][];
-	topic?: string | null;
-	nsfw?: boolean;
-	rateLimitPerUser?: number;
 	bitrate?: number;
+
+	guildId: string;
+
+	name: string;
+
+	nsfw?: boolean;
+
+	parentId: string | null;
+
+	permissionOverwrites?: [string, { id: string; type: string; deny: number; allow: number }][];
+
+	rateLimitPerUser?: number;
+
+	rawPosition: number;
+
+	topic?: string | null;
+
+	type: ChannelTypeString;
+
 	userLimit?: number;
 }
 
-interface FlattenedNewsChannel extends FlattenedGuildChannel {
-	type: 'news';
-	topic: string | null;
+export interface FlattenedNewsChannel extends FlattenedGuildChannel {
 	nsfw: boolean;
+
+	topic: string | null;
+
+	type: 'GUILD_NEWS';
 }
 
-interface FlattenedTextChannel extends FlattenedGuildChannel {
-	type: 'text';
-	topic: string | null;
+export interface FlattenedTextChannel extends FlattenedGuildChannel {
 	nsfw: boolean;
+
 	rateLimitPerUser: number;
+
+	topic: string | null;
+
+	type: 'GUILD_TEXT';
 }
 
-interface FlattenedVoiceChannel extends FlattenedGuildChannel {
-	type: 'voice';
+export interface FlattenedVoiceChannel extends FlattenedGuildChannel {
 	bitrate: number;
+
+	type: 'GUILD_VOICE';
+
 	userLimit: number;
 }
 
-interface FlattenedDMChannel extends FlattenedChannel {
-	type: 'dm';
+export interface FlattenedDMChannel extends FlattenedChannel {
 	recipient: string;
+
+	type: 'DM';
 }
 
 interface FlattenedUser {
 	avatar: string | null;
+
 	discriminator: string;
+
 	flags: number;
+
 	id: string;
+
 	locale: string;
+
 	mfa_enabled: boolean;
+
 	premium_type: number;
+
 	public_flags: number;
+
 	username: string;
 }
 
-interface FlattenedMember {
+export interface FlattenedMember {
+	guildId: string;
+
 	id: string;
-	guildID: string;
-	user: FlattenedUser;
+
 	joinedTimestamp: number | null;
+
 	premiumSinceTimestamp: number | null;
+
 	roles: FlattenedRole[];
+
+	user: FlattenedUser;
 }
 
 export interface FlattenedCommand {
 	category: string;
+
 	description: string;
+
 	extendedHelp: ExtendedHelp;
+
 	guarded: boolean;
+
 	name: string;
+
 	permissionLevel: number;
+
 	preconditions: Preconditions;
 }
 
 export interface Preconditions {
 	entries: PreconditionsEntry[];
-	runCondition: number;
+
 	mode: number;
+
+	runCondition: number;
 }
 
 export interface PreconditionsEntry {
 	entries: PreconditionEntryEntry[];
-	runCondition: number;
+
 	mode: number;
+
+	runCondition: number;
 }
 
 export interface PreconditionEntryEntry {
 	context: unknown;
+
 	name: string;
 }
 
 interface ExtendedHelp {
-	usages?: string[];
-	extendedHelp?: string;
-	explainedUsage?: [string, string][];
-	possibleFormats?: [string, string][];
 	examples?: (null | string)[];
+
+	explainedUsage?: [string, string][];
+
+	extendedHelp?: string;
+
+	possibleFormats?: [string, string][];
+
 	reminder?: string;
+
+	usages?: string[];
 }
 
-interface PartialOauthFlattenedGuild extends Omit<FlattenedGuild, 'joinedTimestamp' | 'ownerID' | 'region' | 'features'> {
+interface PartialOauthFlattenedGuild extends Omit<FlattenedGuild, 'joinedTimestamp' | 'ownerId' | 'region' | 'features'> {
 	joinedTimestamp: FlattenedGuild['joinedTimestamp'] | null;
-	ownerID: FlattenedGuild['ownerID'] | null;
-	region: FlattenedGuild['region'] | null;
+
+	ownerId: FlattenedGuild['ownerId'] | null;
 }
 
 interface OauthFlattenedGuild extends PartialOauthFlattenedGuild {
-	permissions: number;
 	manageable: boolean;
+
+	permissions: number;
+
 	skyraIsIn: boolean;
 }
