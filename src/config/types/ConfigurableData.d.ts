@@ -2,25 +2,30 @@ import type { ReactNode } from 'react';
 
 export namespace Suggestions {
 	export interface OnAction {
-		title: string;
-		key: `suggestionsOnAction${'Dm' | 'RePost' | 'HideAuthor'}`;
 		description: string;
+
+		key: `suggestionsOnAction${'Dm' | 'RePost' | 'HideAuthor'}`;
+
+		title: string;
 	}
 
 	export interface Emoji {
-		title: string;
-		key: `suggestionsEmojis${'DownVote' | 'UpVote'}`;
-		description: string;
-		defaultName: string;
-		defaultImage: `https://cdn.discordapp.com/emojis/${string}.${'gif' | 'png'}`;
 		defaultId: string;
+
+		defaultImage: `https://cdn.discordapp.com/emojis/${string}.${'gif' | 'png'}`;
+
+		defaultName: string;
+
+		description: string;
+
+		key: `suggestionsEmojis${'DownVote' | 'UpVote'}`;
+
+		title: string;
 	}
 }
 
 export namespace Roles {
 	export interface Role {
-		name: string;
-		tooltip: string;
 		key: `roles${
 			| 'Admin'
 			| 'Initial'
@@ -35,13 +40,17 @@ export namespace Roles {
 			| 'RemoveInitial'
 			| 'Dj'
 			| 'Subscriber'}`;
+
+		name: string;
+
+		tooltip: string;
 	}
 }
 
 export namespace Moderation {
 	export interface Message {
-		name: string;
 		description: string;
+
 		key: `messages${
 			| 'AnnouncementEmbed'
 			| 'ModerationDm'
@@ -49,32 +58,42 @@ export namespace Moderation {
 			| 'ModerationMessageDisplay'
 			| 'ModerationAutoDelete'
 			| 'ModeratorNameDisplay'}`;
+
+		name: string;
 	}
 }
 
 export namespace Messages {
 	export interface Message {
-		name: string;
-		placeholder?: string;
-		tooltipText: NonNullable<ReactNode>;
 		key: `messages${'Farewell' | 'Greeting' | 'JoinDM'}`;
+
+		name: string;
+
+		placeholder?: string;
+
+		tooltipText: NonNullable<ReactNode>;
 	}
 }
 
 export namespace Events {
 	export interface Event {
-		title: string;
-		key: `events${'BanAdd' | 'BanRemove' | 'TwemojiReactions'}`;
 		description: string;
+
+		key: `events${'BanAdd' | 'BanRemove' | 'TwemojiReactions'}`;
+
+		title: string;
 	}
 }
 
 export namespace DisableCommands {
 	export interface Command {
-		name: string;
-		description: string;
-		isEnabled: boolean;
 		category: string;
+
+		description: string;
+
+		isEnabled: boolean;
+
+		name: string;
 	}
 }
 
@@ -97,7 +116,8 @@ export namespace CustomCommands {
 
 export namespace Channels {
 	export interface Channel {
-		name: string;
+		description: string;
+
 		key:
 			| `channels${'Announcements' | 'Greeting' | 'Farewell' | 'Spam'}`
 			| `channelsLogs${
@@ -124,13 +144,16 @@ export namespace Channels {
 					| 'RoleDelete'
 					| 'RoleUpdate'
 					| 'ServerUpdate'}`;
-		description: string;
+
+		name: string;
 	}
 
 	export interface IgnoreChannel {
-		name: string;
-		key: `channelsIgnore${'All' | 'MessageDeletes' | 'MessageEdits' | 'ReactionAdds'}`;
 		description: string;
+
+		key: `channelsIgnore${'All' | 'MessageDeletes' | 'MessageEdits' | 'ReactionAdds'}`;
+
+		name: string;
 	}
 }
 
